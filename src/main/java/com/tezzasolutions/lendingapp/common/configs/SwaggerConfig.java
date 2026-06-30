@@ -1,4 +1,4 @@
-package com.tezzasolutions.lendingapp.configs;
+package com.tezzasolutions.lendingapp.common.configs;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -12,14 +12,14 @@ import org.springframework.context.annotation.Configuration;
     public class SwaggerConfig {
 
         @Bean
-        public OpenAPI stadiOpenAPI() {
+        public OpenAPI OpenAPI() {
             return new OpenAPI()
                     .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                     .components(new Components().addSecuritySchemes("bearerAuth",
                             new SecurityScheme().type(SecurityScheme.Type.HTTP)
                                     .scheme("bearer").bearerFormat("JWT")))
                     .info(new Info()
-                            .title("stadiAPI")
+                            .title("lendingAPI")
                             .version("1.0")
                             .description("REST API documentation for lendingAPI"));
         }
