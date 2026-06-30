@@ -21,8 +21,8 @@ public class SpringSecurityAuditorAware implements AuditorAware<Long> {
 
         Object principal = authentication.getPrincipal();
         if (principal instanceof UserDetails) {
-            // Extract user ID from UserDetails - you might need to adjust this based on your User entity
-            return Optional.of(1L); // Placeholder - replace with actual user ID extraction
+            // Extract user ID from UserDetails - adjust this based on User entity
+            return Optional.of(1L); // Placeholder - replace with actual user ID
         }
 
         return Optional.empty();

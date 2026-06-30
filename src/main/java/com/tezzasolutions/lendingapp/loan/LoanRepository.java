@@ -37,4 +37,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     @Query("SELECT l FROM Loan l WHERE l.status = :status AND l.disbursementDate <= :date")
     List<Loan> findLoansByStatusAndDisbursementDateBefore(@Param("status") LoanStatus status, @Param("date") Instant date);
+
+    List<Loan> findByLoanProductId(Long productId);
 }
