@@ -13,6 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorResponse {
+
     private Instant timestamp;
     private int status;
     private String error;

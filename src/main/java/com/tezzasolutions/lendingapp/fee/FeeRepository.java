@@ -28,4 +28,6 @@ public interface FeeRepository extends JpaRepository<Fee, Long> {
     List<Fee> findLateFeeConfigurations(@Param("productId") Long productId);
 
     List<Fee> findByIsActiveTrue();
+
+    List<Fee> findByFeeType(FeeType feeType);
 }

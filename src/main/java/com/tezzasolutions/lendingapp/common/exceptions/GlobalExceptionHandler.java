@@ -19,9 +19,9 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(
-            ResourceNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         log.error("Resource not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.NOT_FOUND.value())
@@ -33,9 +33,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InsufficientLimitException.class)
-    public ResponseEntity<ErrorResponse> handleInsufficientLimitException(
-            InsufficientLimitException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleInsufficientLimitException(InsufficientLimitException ex, WebRequest request) {
         log.error("Insufficient limit: {}", ex.getMessage());
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -47,9 +47,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidLoanStateException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidLoanStateException(
-            InvalidLoanStateException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleInvalidLoanStateException(InvalidLoanStateException ex, WebRequest request) {
         log.error("Invalid loan state: {}", ex.getMessage());
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.CONFLICT.value())
@@ -61,9 +61,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(PaymentProcessingException.class)
-    public ResponseEntity<ErrorResponse> handlePaymentProcessingException(
-            PaymentProcessingException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handlePaymentProcessingException(PaymentProcessingException ex, WebRequest request) {
         log.error("Payment processing error: {}", ex.getMessage());
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -75,9 +75,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationExceptions(
-            MethodArgumentNotValidException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
         Map<String, String> errors = new HashMap<>();
+
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
@@ -96,9 +96,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(LendingAppException.class)
-    public ResponseEntity<ErrorResponse> handleLendingAppException(
-            LendingAppException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleLendingAppException(LendingAppException ex, WebRequest request) {
         log.error("Lending app error: {}", ex.getMessage());
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -110,9 +110,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobalException(
-            Exception ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex, WebRequest request) {
         log.error("Unexpected error: ", ex);
+
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
