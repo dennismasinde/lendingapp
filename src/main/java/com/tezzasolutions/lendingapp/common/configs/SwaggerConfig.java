@@ -1,4 +1,4 @@
-package com.tezzasolutions.lendingapp.configs;
+package com.tezzasolutions.lendingapp.common.configs;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
