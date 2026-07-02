@@ -81,7 +81,7 @@ CREATE TABLE loans (
                        interest_rate DECIMAL(5,2) NOT NULL,
                        tenure INTEGER NOT NULL,
                        tenure_type VARCHAR(20) NOT NULL,
-                       disbursement_date TIMESTAMP NOT NULL,
+                       disbursement_date TIMESTAMP,
                        due_date TIMESTAMP,
                        status VARCHAR(20) NOT NULL,
                        loan_type VARCHAR(20) NOT NULL,
