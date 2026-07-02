@@ -265,32 +265,32 @@ INSERT INTO loans (
              CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0
          );
 
--- Customer 4: Grace Akinyi - SME Loan (OPEN - Installment)
+-- Customer 4: Grace Akinyi - SME Loan (OPEN - Installment) - FIXED
 INSERT INTO loans (
     customer_id, product_id, principal_amount, total_amount, outstanding_balance,
     interest_rate, tenure, tenure_type, disbursement_date, due_date,
-    status, loan_type, billing_cycle_type, is_consolidated,
+    status, loan_type, billing_cycle_type, is_consolidated, consolidated_group_id,
     created_at, updated_at, version
 ) VALUES (
              4, 5, 500000.00, 555000.00, 400000.00,
              11.00, 12, 'MONTHS', CURRENT_TIMESTAMP - INTERVAL '4 months',
              CURRENT_TIMESTAMP + INTERVAL '8 months',
-             'OPEN', 'INSTALLMENT', 'CONSOLIDATED', true,
-             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'GRP001'
+             'OPEN', 'INSTALLMENT', 'CONSOLIDATED', true, 'GRP001',
+             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0
          );
 
--- Customer 4: Grace Akinyi - Consolidated Loan 2 (OPEN - Lump Sum)
+-- Customer 4: Grace Akinyi - Consolidated Loan 2 (OPEN - Lump Sum) - FIXED
 INSERT INTO loans (
     customer_id, product_id, principal_amount, total_amount, outstanding_balance,
     interest_rate, tenure, tenure_type, disbursement_date, due_date,
-    status, loan_type, billing_cycle_type, is_consolidated,
+    status, loan_type, billing_cycle_type, is_consolidated, consolidated_group_id,
     created_at, updated_at, version
 ) VALUES (
              4, 7, 200000.00, 221000.00, 221000.00,
              10.50, 24, 'MONTHS', CURRENT_TIMESTAMP - INTERVAL '2 months',
              CURRENT_TIMESTAMP + INTERVAL '22 months',
-             'OPEN', 'LUMP_SUM', 'CONSOLIDATED', true,
-             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'GRP001'
+             'OPEN', 'LUMP_SUM', 'CONSOLIDATED', true, 'GRP001',
+             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0
          );
 
 -- Customer 6: Sarah Kiprop - Personal Loan (PENDING)
@@ -554,4 +554,3 @@ SELECT n.id, 'loanAmount', CASE
 FROM notifications n
 WHERE n.type IN ('LOAN_APPROVED', 'LOAN_DISBURSED');
 
-INSERT INTO notification
