@@ -1,9 +1,14 @@
 package com.tezzasolutions.lendingapp;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootTest
+@SpringBootApplication
+@TestConfiguration
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 class LendingappApplicationTests {
 
 	@Test

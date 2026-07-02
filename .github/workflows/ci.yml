@@ -1,4 +1,4 @@
-name: STADI CI Pipeline
+name: LENDING CI Pipeline
 
 on:
   push:
