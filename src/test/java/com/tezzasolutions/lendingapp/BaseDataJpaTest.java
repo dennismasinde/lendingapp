@@ -1,6 +1,7 @@
 package com.tezzasolutions.lendingapp;
 
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
@@ -17,5 +18,6 @@ import java.lang.annotation.Target;
         "spring.flyway.enabled=false",
         "spring.jpa.hibernate.ddl-auto=create-drop"
 })
+@Import(TestAuditConfig.class)
 public @interface BaseDataJpaTest {
 }
