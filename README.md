@@ -1,23 +1,3 @@
-# Architecture
-
-The application follows a **package-by-feature (domain-oriented)** architecture.
-
-Each business domain is isolated into its own package, making the application easier to maintain, test, and extend.
-
-Current domains include:
-
-* Customer
-* Loan
-* Installment
-* Repayment
-* Fee
-* Notification
-* Scheduler
-
-Shared functionality such as configuration, exceptions, utilities, and common models are located under the `common` package.
-
----
-
 # Getting Started
 
 ## Clone the repository
