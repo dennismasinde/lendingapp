@@ -30,4 +30,6 @@ public interface LoanProductRepository extends JpaRepository<LoanProduct, Long> 
     List<LoanProduct> findProductsByTenureRange(@Param("tenure") Integer tenure);
 
     boolean existsByNameIgnoreCase(String name);
+
+    List<LoanProduct> findByMinAmountLessThanEqualAndMaxAmountGreaterThanEqualAndIsActiveTrue(BigDecimal bigDecimal, BigDecimal bigDecimal1);
 }

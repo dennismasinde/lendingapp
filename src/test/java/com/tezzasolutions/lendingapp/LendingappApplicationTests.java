@@ -8,6 +8,11 @@ class LendingappApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// This test verifies that the Spring context loads successfully
 	}
 
+	@Test
+	void mainMethodRuns() {
+		LendingappApplication.main(new String[]{});
+	}
 }
