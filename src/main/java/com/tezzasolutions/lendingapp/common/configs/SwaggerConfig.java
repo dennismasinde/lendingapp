@@ -9,19 +9,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-    public class SwaggerConfig {
+public class SwaggerConfig {
 
-        @Bean
-        public OpenAPI OpenAPI() {
-            return new OpenAPI()
-                    .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                    .components(new Components().addSecuritySchemes("bearerAuth",
-                            new SecurityScheme().type(SecurityScheme.Type.HTTP)
-                                    .scheme("bearer").bearerFormat("JWT")))
-                    .info(new Info()
-                            .title("lendingAPI")
-                            .version("1.0")
-                            .description("REST API documentation for lendingAPI"));
-        }
+    @Bean
+    public OpenAPI openAPI() {
+
+        final String securitySchemeName = "basicAuth";
+
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Lending API")
+                        .description("REST API documentation for Lending API")
+                        .version("1.0"))
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(
+                                securitySchemeName,
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("basic")
+                        ));
     }
+}
 

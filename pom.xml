@@ -139,13 +139,10 @@
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- REMOVED: These are already included via spring-boot-starter-test -->
-		<!--
-			spring-boot-starter-actuator-test
-			spring-boot-starter-flyway-test
-			spring-boot-starter-webmvc-test
-		-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
