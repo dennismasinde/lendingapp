@@ -9,14 +9,6 @@ cd lendingapp
 
 ---
 
-## Build the application
-
-```bash
-mvn clean package
-```
-
----
-
 ## Run using Docker
 
 ```bash
