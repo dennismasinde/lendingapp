@@ -1,23 +1,3 @@
-# Architecture
-
-The application follows a **package-by-feature (domain-oriented)** architecture.
-
-Each business domain is isolated into its own package, making the application easier to maintain, test, and extend.
-
-Current domains include:
-
-* Customer
-* Loan
-* Installment
-* Repayment
-* Fee
-* Notification
-* Scheduler
-
-Shared functionality such as configuration, exceptions, utilities, and common models are located under the `common` package.
-
----
-
 # Getting Started
 
 ## Clone the repository
@@ -25,14 +5,6 @@ Shared functionality such as configuration, exceptions, utilities, and common mo
 ```bash
 git clone https://github.com/dennismasinde/lendingapp
 cd lendingapp
-```
-
----
-
-## Build the application
-
-```bash
-mvn clean package
 ```
 
 ---
@@ -299,7 +271,6 @@ The application currently manages:
 * Repayments
 * Loan Fees
 * Notifications
-* Notification Variables
 
 Relationships are enforced using foreign keys and optimized using indexes.
 
@@ -386,9 +357,9 @@ mvn spring-boot:run
 
 **Dennis Masinde**
 
-Senior Platform & Backend Engineer
+Platform & Backend Engineer
 
-Java • Spring Boot • PostgreSQL • Docker • Kubernetes • Azure • DevOps
+Java • Spring Boot • PostgreSQL • Docker • Kubernetes • Cloud • DevOps
 
 ```
 ```
