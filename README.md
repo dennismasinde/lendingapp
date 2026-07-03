@@ -271,7 +271,6 @@ The application currently manages:
 * Repayments
 * Loan Fees
 * Notifications
-* Notification Variables
 
 Relationships are enforced using foreign keys and optimized using indexes.
 
@@ -358,9 +357,9 @@ mvn spring-boot:run
 
 **Dennis Masinde**
 
-Senior Platform & Backend Engineer
+Platform & Backend Engineer
 
-Java • Spring Boot • PostgreSQL • Docker • Kubernetes • Azure • DevOps
+Java • Spring Boot • PostgreSQL • Docker • Kubernetes • Cloud • DevOps
 
 ```
 ```
