@@ -338,6 +338,297 @@ mvn spring-boot:run
 
 ---
 
+# Observability Stack
+
+The application includes a production-style observability stack for monitoring, metrics, logging, alerting, and distributed tracing.
+
+| Service | URL | Purpose |
+|---------|-----|---------|
+| Spring Boot Actuator | http://localhost:8088/actuator | Application health and metrics |
+| Prometheus | http://localhost:9090 | Metrics collection and alert evaluation |
+| Grafana | http://localhost:3000 | Dashboards and visualization |
+| PostgreSQL Exporter | http://localhost:9187/metrics | PostgreSQL metrics |
+| Loki | http://localhost:3100 | Log aggregation |
+| Zipkin | http://localhost:9411 | Distributed tracing |
+
+---
+
+# Grafana
+
+Grafana is pre-configured using provisioning.
+
+Open:
+
+```
+http://localhost:3000
+```
+
+Default credentials:
+
+```
+Username: admin
+Password: admin
+```
+
+The following data sources are automatically provisioned:
+
+- Prometheus
+- Loki
+
+Available dashboards include metrics for:
+
+- Spring Boot
+- JVM
+- HTTP Requests
+- PostgreSQL
+- Docker Containers
+- System Health
+
+---
+
+# Prometheus
+
+Prometheus collects metrics from:
+
+- Lending API
+- PostgreSQL Exporter
+
+Open:
+
+```
+http://localhost:9090
+```
+
+Useful targets page:
+
+```
+http://localhost:9090/targets
+```
+
+All configured targets should display:
+
+```
+UP
+```
+
+Useful graph page:
+
+```
+http://localhost:9090/graph
+```
+
+Example queries:
+
+Application availability
+
+```promql
+up
+```
+
+HTTP requests
+
+```promql
+http_server_requests_seconds_count
+```
+
+JVM Heap Usage
+
+```promql
+jvm_memory_used_bytes
+```
+
+CPU Usage
+
+```promql
+process_cpu_usage
+```
+
+Database Connections
+
+```promql
+hikaricp_connections_active
+```
+
+PostgreSQL Metrics
+
+```promql
+pg_up
+```
+
+---
+
+# Alerting
+
+Prometheus evaluates alert rules located at:
+
+```
+monitoring/prometheus/alert.rules.yml
+```
+
+Current alert:
+
+| Alert | Description |
+|--------|-------------|
+| LendingApiDown | Fires when the Lending API cannot be scraped for more than 1 minute |
+
+View alert status:
+
+```
+http://localhost:9090/alerts
+```
+
+Alert states:
+
+- Inactive
+- Pending
+- Firing
+
+---
+
+# Spring Boot Actuator
+
+The application exposes Actuator endpoints used by Prometheus.
+
+Base URL:
+
+```
+http://localhost:8088/actuator
+```
+
+Useful endpoints:
+
+Health
+
+```
+/actuator/health
+```
+
+Metrics
+
+```
+/actuator/metrics
+```
+
+Prometheus Metrics
+
+```
+/actuator/prometheus
+```
+
+Example:
+
+```
+http://localhost:8088/actuator/prometheus
+```
+
+---
+
+# PostgreSQL Exporter
+
+The PostgreSQL Exporter exposes database metrics consumed by Prometheus.
+
+Metrics endpoint:
+
+```
+http://localhost:9187/metrics
+```
+
+Metrics include:
+
+- Active connections
+- Database size
+- Transactions
+- Locks
+- Buffers
+- Query statistics
+
+---
+
+# Loki
+
+Loki provides centralized log aggregation.
+
+Service URL:
+
+```
+http://localhost:3100
+```
+
+Logs can be viewed directly from Grafana using the preconfigured Loki data source.
+
+---
+
+# Zipkin
+
+Zipkin provides distributed tracing for incoming requests.
+
+Open:
+
+```
+http://localhost:9411
+```
+
+Once tracing is enabled in the application, request traces and latency breakdowns will be available here.
+
+---
+
+---
+
+# Verifying the Monitoring Stack
+
+Check that all monitoring containers are running:
+
+```bash
+docker ps
+```
+
+Expected containers:
+
+- lending-api
+- lending-postgres
+- lending-postgres-exporter
+- lending-prometheus
+- lending-grafana
+- lending-loki
+- lending-promtail
+- lending-zipkin
+
+Verify API health:
+
+```bash
+curl http://localhost:8088/actuator/health
+```
+
+Verify Prometheus metrics:
+
+```bash
+curl http://localhost:8088/actuator/prometheus
+```
+
+Verify PostgreSQL exporter:
+
+```bash
+curl http://localhost:9187/metrics
+```
+
+Open Grafana:
+
+```
+http://localhost:3000
+```
+
+Ensure all Prometheus targets are **UP**:
+
+```
+http://localhost:9090/targets
+```
+
+Check active alerts:
+
+```
+http://localhost:9090/alerts
+```
+
 # Current Status
 
 * ✅ Spring Boot 4.1 application
@@ -358,8 +649,4 @@ mvn spring-boot:run
 **Dennis Masinde**
 
 Platform & Backend Engineer
-
-Java • Spring Boot • PostgreSQL • Docker • Kubernetes • Cloud • DevOps
-
-```
 ```

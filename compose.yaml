@@ -20,6 +20,19 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: lending-postgres-exporter
+
+    environment:
+      DATA_SOURCE_NAME: "postgresql://lendinguser:secret@postgres:5432/lendingdb?sslmode=disable"
+
+    ports:
+      - "9187:9187"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   lending-api:
 
@@ -39,13 +52,90 @@ services:
 
     environment:
 
-      SPRING_PROFILES_ACTIVE: docker
-
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lendingdb
       SPRING_DATASOURCE_USERNAME: lendinguser
       SPRING_DATASOURCE_PASSWORD: secret
 
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
+  prometheus:
+
+    image: prom/prometheus:latest
+
+    container_name: lending-prometheus
+
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+    depends_on:
+      - lending-api
+
+  grafana:
+
+    image: grafana/grafana:latest
+
+    container_name: lending-grafana
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+
+  loki:
+
+    image: grafana/loki:latest
+
+    container_name: lending-loki
+
+    ports:
+      - "3100:3100"
+
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+
+    image: grafana/promtail:latest
+
+    container_name: lending-promtail
+
+    volumes:
+
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      - ./monitoring/promtail/promtail.yml:/etc/promtail/config.yml
+
+    command: -config.file=/etc/promtail/config.yml
+
+    depends_on:
+      - loki
+
+  zipkin:
+
+    image: openzipkin/zipkin:latest
+
+    container_name: lending-zipkin
+
+    ports:
+      - "9411:9411"
+
 volumes:
   postgres-data:
+  grafana-data:
